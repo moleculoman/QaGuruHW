@@ -5,13 +5,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class PracticeFormTest {
-    @BeforeAll
-    static void settingsForBrowser() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.pageLoadStrategy = "eager";
-    }
+public class PracticeFormTest extends TestSettings{
 
     @Test
     @DisplayName("Успешное заполнение всех полей формы")
