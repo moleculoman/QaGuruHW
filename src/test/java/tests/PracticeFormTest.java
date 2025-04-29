@@ -1,5 +1,7 @@
-import com.codeborne.selenide.*;
+package tests;
+
 import org.junit.jupiter.api.*;
+import pages.RegistrationPage;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
@@ -7,34 +9,31 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeFormTest extends TestSettings{
 
+    RegistrationPage registrationPage = new RegistrationPage();
     @Test
     @DisplayName("Успешное заполнение всех полей формы")
     public void fillStudentRegistrationFormTest() {
-        open("/automation-practice-form");
-        $("#firstName").setValue("Petr");
-        $("#lastName").setValue("Petrov");
-        $("#userEmail").setValue("petrovpetr@mail.ru");
-        $("#genterWrapper").$(byText("Male")).click();
-        $("#userNumber").setValue("1234567890");
-
+        registrationPage.openPage()
+        .setFirstName("Petr")
+        .setLastName("Petrov")
+        .setEmail("petrovpetr@mail.ru")
+        .setGender("Male")
+        .setUserNumber("1234567890")
         //Проверка формы введения даты рождения
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__year-select").selectOption("1997");
-        $(".react-datepicker__month-select").selectOption("May");
-        $$(".react-datepicker__day--029").filterBy(not(cssClass("react-datepicker__day--outside-month"))).first().click();
-
-        //Проверка списка учебных предметов
-        $("#subjectsInput").setValue("English").pressEnter();
-        $("#hobbiesWrapper").$(byText("Music")).click();
+        .setDateOfBirth("29", "May", "1997")
+        //Проверка списка учебных предметов и выбор хобби
+        .setSubject("English")
+        .setHobbies("Music")
         //Загрузка фото
-        $("#uploadPicture").uploadFromClasspath("example.jpg");
-
+        .setPicture("example.jpg")
         //Проверка адреса
-        $("#currentAddress").setValue("Krasnoyarsk region, Krasnoyarsk city").pressEnter();
-        $("#react-select-3-input").setValue("Uttar Pradesh").pressEnter();
-        $("#react-select-4-input").setValue("Agra").pressEnter();
+        .setCurrentAddress("Krasnoyarsk region, Krasnoyarsk city")
+        //Проверка Страны и Города
+        .setStateAndCity("Uttar Pradesh", "Agra")
+        //Отправка данных финальная
+        .clickSubmitButton();
 
-        $("#submit").click();
+
 
         // Проверки
         $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Petr Petrov"));
