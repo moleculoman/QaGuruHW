@@ -10,46 +10,64 @@ import static com.codeborne.selenide.Selenide.*;
 public class PracticeFormTest extends TestSettings{
 
     RegistrationPage registrationPage = new RegistrationPage();
+
     @Test
     @DisplayName("Успешное заполнение всех полей формы")
     public void fillStudentRegistrationFormTest() {
         registrationPage.openPage()
+        .removeBanners()
         .setFirstName("Petr")
         .setLastName("Petrov")
         .setEmail("petrovpetr@mail.ru")
         .setGender("Male")
         .setUserNumber("1234567890")
-        //Проверка формы введения даты рождения
         .setDateOfBirth("29", "May", "1997")
-        //Проверка списка учебных предметов и выбор хобби
         .setSubject("English")
         .setHobbies("Music")
-        //Загрузка фото
         .setPicture("example.jpg")
-        //Проверка адреса
         .setCurrentAddress("Krasnoyarsk region, Krasnoyarsk city")
-        //Проверка Страны и Города
         .setStateAndCity("Uttar Pradesh", "Agra")
-        //Отправка данных финальная
         .clickSubmitButton();
 
-
-
         // Проверки
-        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Petr Petrov"));
-        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("petrovpetr@mail.ru"));
-        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Male"));
-        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text("1234567890"));
-        $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text("29 May,1997"));
-        $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text("English"));
-        $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text("Music"));
-        $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("example.jpg"));
-        $(".table-responsive").$(byText("Address")).parent().shouldHave(text("Krasnoyarsk region, Krasnoyarsk city"));
-        $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("Uttar Pradesh Agra"));
+        registrationPage.checkResult("Student Name" ,"Petr Petrov")
+        .checkResult("Student Email", "petrovpetr@mail.ru")
+        .checkResult("Gender", "Male")
+        .checkResult("Mobile","1234567890")
+        .checkResult("Date of Birth", "29 May,1997")
+        .checkResult("Subjects", "English")
+        .checkResult("Hobbies","Music" )
+        .checkResult("Picture","example.jpg" )
+        .checkResult("Address", "Krasnoyarsk region, Krasnoyarsk city")
+        .checkResult("State and City", "Uttar Pradesh Agra");
+       }
 
-
+    @Test
+    @DisplayName("Успешная отправка формы регистрации только с обязательными полями")
+    public void successSubmitRegFormWithRequiredFieldsTest(){
+        registrationPage.openPage()
+                .removeBanners()
+                .setFirstName("Petr")
+                .setLastName("Petrov")
+                .setGender("Male")
+                .setUserNumber("1234567890")
+                .clickSubmitButton();
+        registrationPage.
+                checkResult("Student Name" ,"Petr Petrov")
+                .checkResult("Gender", "Male")
+                .checkResult("Mobile","1234567890");
     }
 
-
-
+    @Test
+    @DisplayName("Негативная проверка - заполнены не все обязательные поля")
+    public void testStudentRegistrationWithMissingRequiredFields(){
+        registrationPage.openPage()
+                .removeBanners()
+                .setFirstName("Petr")
+                .setGender("Male")
+                .setUserNumber("1234567890")
+                .clickSubmitButton();
+        registrationPage.assertModalIsNotVisible();
+    }
 }
+

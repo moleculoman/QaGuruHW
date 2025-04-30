@@ -1,16 +1,23 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
-import components.CalendarComponent;
+import pages.components.CalendarComponent;
+import pages.components.CheckResultComponent;
 
-import static com.codeborne.selenide.Condition.cssClass;
-import static com.codeborne.selenide.Condition.not;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
     CalendarComponent calendarComponent = new CalendarComponent();
+    CheckResultComponent checkResultComponent = new CheckResultComponent();
 
+    public RegistrationPage removeBanners() {
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
+        return this;
+    }
     public RegistrationPage openPage() {
         open("/automation-practice-form");
         return this;
@@ -28,7 +35,9 @@ public class RegistrationPage {
             currentAddressInput = $("#currentAddress"),
             stateInput = $("#react-select-3-input"),
             cityInput = $("#react-select-4-input"),
-            submitButton = $("#submit");
+            submitButton = $("#submit"),
+            modalContent = $(".modal-content");
+
 
 
     public RegistrationPage setFirstName(String value) {
@@ -80,4 +89,16 @@ public class RegistrationPage {
     public void clickSubmitButton () {
         submitButton.click();
     }
+
+    public RegistrationPage checkResult (String key, String value){
+        checkResultComponent.checkResult(key,value);
+        return this;
+    }
+    public void assertModalIsNotVisible(){
+        modalContent.shouldNotBe(visible);
+    }
+
+
+
+
 }

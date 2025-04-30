@@ -3,6 +3,8 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 
+import static com.codeborne.selenide.Selenide.executeJavaScript;
+
 public class TestSettings {
     @BeforeAll
     static void settingsForBrowser() {
