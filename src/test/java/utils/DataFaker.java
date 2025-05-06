@@ -25,8 +25,7 @@ public class DataFaker {
     }
 
     public String getRandomBirthDay() {
-        int fakeNumber=faker.number().numberBetween(1,32);
-        return String.format("%s",fakeNumber);
+        return String.valueOf(faker.number().numberBetween(1,31));
     }
     public String getRandomBirthMonth() {
         return faker.options().option(
@@ -35,8 +34,7 @@ public class DataFaker {
     }
 
     public String getRandomBirthYear() {
-        int fakeYear=faker.number().numberBetween(1980,2025);
-        return Integer.toString(fakeYear);
+        return String.valueOf(faker.number().numberBetween(1980,2025));
     }
 
     public String getRandomSubject() {
