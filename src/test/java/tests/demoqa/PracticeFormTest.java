@@ -4,7 +4,7 @@ import org.junit.jupiter.api.*;
 import pages.RegistrationPage;
 import utils.DataFaker;
 
-public class PracticeFormTest extends TestSettings{
+public class PracticeFormTest extends TestSettingsDemoQa {
 
     RegistrationPage registrationPage = new RegistrationPage();
     DataFaker dF = new DataFaker();
