@@ -2,44 +2,56 @@ package tests;
 
 import org.junit.jupiter.api.*;
 import pages.RegistrationPage;
-
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+import utils.DataFaker;
 
 public class PracticeFormTest extends TestSettings{
 
     RegistrationPage registrationPage = new RegistrationPage();
+    DataFaker dF = new DataFaker();
+
+    String firstName = dF.getRandomFirstName();
+    String lastName = dF.getRandomLastName();
+    String email = dF.getRandomEmail();
+    String gender = dF.getRandomGender();
+    String phoneNumber = dF.getRandomPhoneNumber();
+    String day = dF.getRandomBirthDay();
+    String month = dF.getRandomBirthMonth();
+    String year = dF.getRandomBirthYear();
+    String subject = dF.getRandomSubject();
+    String hobbies = dF.getRandomHobbies();
+    String address = dF.getRandomAddress();
+    String state = dF.getRandomState();
+    String city = dF.getRandomCity(state);
 
     @Test
     @DisplayName("Успешное заполнение всех полей формы")
     public void fillStudentRegistrationFormTest() {
         registrationPage.openPage()
         .removeBanners()
-        .setFirstName("Petr")
-        .setLastName("Petrov")
-        .setEmail("petrovpetr@mail.ru")
-        .setGender("Male")
-        .setUserNumber("1234567890")
-        .setDateOfBirth("29", "May", "1997")
-        .setSubject("English")
-        .setHobbies("Music")
+        .setFirstName(firstName)
+        .setLastName(lastName)
+        .setEmail(email)
+        .setGender(gender)
+        .setUserNumber(phoneNumber)
+        .setDateOfBirth(day, month, year)
+        .setSubject(subject)
+        .setHobbies(hobbies)
         .setPicture("example.jpg")
-        .setCurrentAddress("Krasnoyarsk region, Krasnoyarsk city")
-        .setStateAndCity("Uttar Pradesh", "Agra")
+        .setCurrentAddress(address)
+        .setStateAndCity(state, city)
         .clickSubmitButton();
 
         // Проверки
-        registrationPage.checkResult("Student Name" ,"Petr Petrov")
-        .checkResult("Student Email", "petrovpetr@mail.ru")
-        .checkResult("Gender", "Male")
-        .checkResult("Mobile","1234567890")
-        .checkResult("Date of Birth", "29 May,1997")
-        .checkResult("Subjects", "English")
-        .checkResult("Hobbies","Music" )
+        registrationPage.checkResult("Student Name" , firstName + " " +lastName)
+        .checkResult("Student Email", email)
+        .checkResult("Gender", gender)
+        .checkResult("Mobile", phoneNumber)
+        .checkResult("Date of Birth", day + " " + month + "," + year)
+        .checkResult("Subjects", subject)
+        .checkResult("Hobbies", hobbies)
         .checkResult("Picture","example.jpg" )
-        .checkResult("Address", "Krasnoyarsk region, Krasnoyarsk city")
-        .checkResult("State and City", "Uttar Pradesh Agra");
+        .checkResult("Address", address)
+        .checkResult("State and City", state +" "+ city);
        }
 
     @Test
@@ -47,15 +59,15 @@ public class PracticeFormTest extends TestSettings{
     public void successSubmitRegFormWithRequiredFieldsTest(){
         registrationPage.openPage()
                 .removeBanners()
-                .setFirstName("Petr")
-                .setLastName("Petrov")
-                .setGender("Male")
-                .setUserNumber("1234567890")
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setGender(gender)
+                .setUserNumber(phoneNumber)
                 .clickSubmitButton();
         registrationPage.
-                checkResult("Student Name" ,"Petr Petrov")
-                .checkResult("Gender", "Male")
-                .checkResult("Mobile","1234567890");
+                checkResult("Student Name" , firstName + " " +lastName)
+                .checkResult("Gender", gender)
+                .checkResult("Mobile", phoneNumber);
     }
 
     @Test
@@ -63,9 +75,9 @@ public class PracticeFormTest extends TestSettings{
     public void testStudentRegistrationWithMissingRequiredFields(){
         registrationPage.openPage()
                 .removeBanners()
-                .setFirstName("Petr")
-                .setGender("Male")
-                .setUserNumber("1234567890")
+                .setFirstName(firstName)
+                .setGender(gender)
+                .setUserNumber(phoneNumber)
                 .clickSubmitButton();
         registrationPage.assertModalIsNotVisible();
     }
