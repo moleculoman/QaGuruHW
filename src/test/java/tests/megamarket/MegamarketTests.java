@@ -67,7 +67,7 @@ public class MegamarketTests extends TestSettingsMegamarketTests {
     @ParameterizedTest(name = "Для поискового запроса {0} в товарах должно быть значение {1}")
     @Tag("MINOR")
     @DisplayName("TC_3: Проверка поиска определенной модели VR-шлемов")
-    void searchResultsShouldContainExpectedBooks(String searchQuery, String vrModelName) {
+    void searchResultsShouldContainExpectedVRs(String searchQuery, String vrModelName) {
         $$("div.search-tab__description-text")
                 .findBy(text("Найти товары"))
                 .shouldBe(visible)
