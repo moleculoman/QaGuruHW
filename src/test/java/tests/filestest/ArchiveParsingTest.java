@@ -1,6 +1,6 @@
 package tests.filestest;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
@@ -21,6 +21,7 @@ public class ArchiveParsingTest {
     @Test
     @DisplayName("Проверка pdf-файла из архива")
     public void checkPDFFromZipTest() throws Exception {
+        boolean pdfFileFound = false;
         try (InputStream inputStream = classLoader.getResourceAsStream("testArchive.zip");
              ZipInputStream zipInputStream = new ZipInputStream(inputStream)
         )
@@ -28,6 +29,7 @@ public class ArchiveParsingTest {
             ZipEntry zipEntry;
             while ((zipEntry = zipInputStream.getNextEntry()) != null) {
                 if (zipEntry.getName().endsWith(".pdf")) {
+                    pdfFileFound = true;
                     PDF pdf = new PDF(zipInputStream);
                     assertEquals("TestingFile", pdf.title);
                     assertEquals("MaxisTest", pdf.author);
@@ -37,18 +39,22 @@ public class ArchiveParsingTest {
                             .doesNotContain("секретные данные");
                 }
             }
+            assertTrue(pdfFileFound, "В архиве отсутствует файл с расширением .pdf");
         }
     }
 
     @Test
     @DisplayName("Проверка структуры xls-файла из архива")
     public void checkXLSStructureFromZipTest() throws Exception {
+        //Флаг для проверки наличия файла
+        boolean xlsxFileFound = false;
         try (InputStream inputStream = classLoader.getResourceAsStream("testArchive.zip");
              ZipInputStream zipInputStream = new ZipInputStream(inputStream)
         ) {
             ZipEntry zipEntry;
             while ((zipEntry = zipInputStream.getNextEntry()) != null) {
                 if (zipEntry.getName().endsWith(".xlsx")) {
+                    xlsxFileFound = true;
                     XLS xls = new XLS(zipInputStream);
                     String externalIdentifier = xls.excel.getSheetAt(0).getRow(0).getCell(0).getStringCellValue();
                     String secondName = xls.excel.getSheetAt(0).getRow(0).getCell(1).getStringCellValue();
@@ -65,17 +71,21 @@ public class ArchiveParsingTest {
                     assertEquals("Должность", position);
                 }
             }
+            assertTrue(xlsxFileFound, "В архиве отсутствует файл с расширением .xlsx");
         }
     }
     @Test
     @DisplayName("Проверка корректности наполнения xls-файла из архива")
     public void checkXLSFillmentFromZipTest() throws Exception {
+        //Флаг для проверки наличия файла
+        boolean xlsxFileFound = false;
         try (InputStream inputStream = classLoader.getResourceAsStream("testArchive.zip");
              ZipInputStream zipInputStream = new ZipInputStream(inputStream)
         ) {
             ZipEntry zipEntry;
             while ((zipEntry = zipInputStream.getNextEntry()) != null) {
                 if (zipEntry.getName().endsWith(".xlsx")) {
+                    xlsxFileFound = true;
                     XLS xls = new XLS(zipInputStream);
                     String externalIdentifier = xls.excel.getSheetAt(0).getRow(1).getCell(0).getStringCellValue();
                     String secondName = xls.excel.getSheetAt(0).getRow(1).getCell(1).getStringCellValue();
@@ -92,18 +102,22 @@ public class ArchiveParsingTest {
                     assertEquals("Руководитель департамента", position);
                 }
             }
+            assertTrue(xlsxFileFound, "В архиве отсутствует файл с расширением .xlsx");
         }
     }
 
     @Test
     @DisplayName("Проверка csv-файла из архива")
     public void checkCSVFromZipTest() throws Exception {
+        //Флаг для проверки наличия файла
+        boolean csvFileFound = false;
         try (InputStream inputStream = classLoader.getResourceAsStream("testArchive.zip");
              ZipInputStream zipInputStream = new ZipInputStream(inputStream)
         ) {
             ZipEntry zipEntry;
             while ((zipEntry = zipInputStream.getNextEntry()) != null) {
                 if (zipEntry.getName().endsWith(".csv")) {
+                    csvFileFound = true;
                     CSVReader csvReader = new CSVReader(new InputStreamReader(zipInputStream,StandardCharsets.UTF_8));
                     List<String[]> content = csvReader.readAll();
                     //убираем BOM-маркеры с файла
@@ -120,8 +134,7 @@ public class ArchiveParsingTest {
                     );
                 }
             }
+            assertTrue(csvFileFound, "В архиве отсутствует файл с расширением .csv");
         }
     }
-
-
 }
