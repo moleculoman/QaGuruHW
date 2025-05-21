@@ -42,7 +42,7 @@ public class IssueCheckAllTests {
             $("[data-target='qbsearch-input.inputButtonText']").click();
             $("#query-builder-test").setValue(REPOSITORY).pressEnter();
         });
-        step("Кликаем по ссылке репозитория " + REPOSITORY, () -> {
+        step("Клик по ссылке репозитория " + REPOSITORY, () -> {
             $(linkText(REPOSITORY)).click();
         });
         step("Проверка названия Issue в репозитории", () ->
@@ -54,7 +54,6 @@ public class IssueCheckAllTests {
     @DisplayName("Проверка с шагами аннотации @Step")
     void stepAnnotationCheckIssueTitleTest(){
         WebSteps steps = new WebSteps();
-
         steps.openMainPage();
         steps.searchForRepository(REPOSITORY);
         steps.chooseRepository(REPOSITORY);
