@@ -5,7 +5,7 @@ import pages.RegistrationPage;
 import utils.DataFaker;
 
 
-@Tag("demo_qa")
+@Tag("DemoQaTests")
 public class PracticeFormTest extends TestSettingsDemoQa {
 
     RegistrationPage registrationPage = new RegistrationPage();

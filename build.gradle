@@ -56,9 +56,9 @@ tasks.withType(Test) {
 }
 
 //Через аннотацию @TAG можно конфигурировать список тестов для запуска
-task demo_qa(type: Test) {
+task demoQaTests(type: Test) {
     useJUnitPlatform {
-        includeTags("demo_qa")
+        includeTags("DemoQaTests")
     }
 }
 
