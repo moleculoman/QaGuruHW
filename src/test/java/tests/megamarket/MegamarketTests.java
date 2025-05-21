@@ -11,6 +11,7 @@ import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
+@Tag("MegaMarketTest")
 
 public class MegamarketTests extends TestSettingsMegamarketTests {
     @BeforeEach

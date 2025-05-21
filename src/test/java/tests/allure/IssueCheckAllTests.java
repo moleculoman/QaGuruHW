@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
 import static org.openqa.selenium.By.linkText;
 
-
+@Tag("AllureTests")
 public class IssueCheckAllTests {
     private static final String REPOSITORY = "selenide/selenide";
     @BeforeAll
