@@ -18,6 +18,7 @@ public class TestSettingsMegamarketTests {
         Configuration.pageLoadStrategy = "eager";
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+        Configuration.browser = "firefox";
     }
     @AfterEach
     void addAttachments() {
