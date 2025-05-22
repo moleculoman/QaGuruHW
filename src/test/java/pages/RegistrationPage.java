@@ -16,6 +16,8 @@ public class RegistrationPage {
     public RegistrationPage removeBanners() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
+        executeJavaScript("$('[id=\"Ad.Plus-970x250-1\"]').remove()");
+        executeJavaScript("$('[id^=\"Ad.Plus\"]').remove()");
         return this;
     }
     public RegistrationPage openPage() {
