@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import utils.Attach;
 
+import java.util.Map;
+
 import static com.codeborne.selenide.Selenide.open;
 
 public class TestSettingsMegamarketTests {
@@ -18,6 +20,11 @@ public class TestSettingsMegamarketTests {
         Configuration.pageLoadStrategy = "eager";
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                "enableVNC", true,
+                "enableVideo", true
+        ));
     }
     @AfterEach
     void addAttachments() {

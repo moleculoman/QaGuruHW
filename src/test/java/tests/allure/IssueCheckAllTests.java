@@ -4,8 +4,11 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Step;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import utils.Attach;
 
+
+import java.util.Map;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
@@ -20,7 +23,11 @@ public class IssueCheckAllTests {
         Configuration.browserSize = "1920x1080";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
-
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                "enableVNC", true,
+                "enableVideo", true
+        ));
     }
     @AfterEach
     void addAttachments() {
