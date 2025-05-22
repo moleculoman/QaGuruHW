@@ -4,6 +4,7 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Step;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
+import utils.Attach;
 
 
 import static com.codeborne.selenide.Condition.text;
@@ -19,6 +20,14 @@ public class IssueCheckAllTests {
         Configuration.browserSize = "1920x1080";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+
+    }
+    @AfterEach
+    void addAttachments() {
+        Attach.screenshotAs("Last screenshot");
+        Attach.pageSource();
+        Attach.browserConsoleLogs();
+        Attach.addVideo();
 
     }
     @Test
