@@ -23,6 +23,7 @@ public class TestSettingsDemoQa {
                 "enableVNC", true,
                 "enableVideo", true
         ));
+        Configuration.browserCapabilities = capabilities;
     }
 
     @AfterEach

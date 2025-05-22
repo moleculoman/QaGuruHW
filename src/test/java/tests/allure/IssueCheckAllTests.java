@@ -28,6 +28,8 @@ public class IssueCheckAllTests {
                 "enableVNC", true,
                 "enableVideo", true
         ));
+        Configuration.browserCapabilities = capabilities;
+
     }
     @AfterEach
     void addAttachments() {

@@ -25,6 +25,8 @@ public class TestSettingsMegamarketTests {
                 "enableVNC", true,
                 "enableVideo", true
         ));
+        Configuration.browserCapabilities = capabilities;
+
     }
     @AfterEach
     void addAttachments() {
