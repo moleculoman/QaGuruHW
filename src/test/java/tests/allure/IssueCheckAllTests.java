@@ -18,6 +18,8 @@ public class IssueCheckAllTests {
     static void setup() {
         Configuration.browserSize = "1920x1080";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+
     }
     @Test
     @Step
