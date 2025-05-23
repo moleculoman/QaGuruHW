@@ -13,8 +13,8 @@ import java.util.Map;
 public class TestSettingsDemoQa {
     @BeforeAll
     static void settingsForBrowserDemoQa() {
-        Configuration.browserSize = System.getProperty("browser.size", "1920x1080");
         Configuration.baseUrl = "https://demoqa.com";
+        Configuration.browserSize = System.getProperty("browser.size", "1920x1080");
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browser.version", "128.0");
         Configuration.pageLoadStrategy = "eager";
@@ -30,6 +30,11 @@ public class TestSettingsDemoQa {
         ));
         Configuration.browserCapabilities = capabilities;
         Configuration.holdBrowserOpen = false;
+
+        System.out.println("baseUrl: " + Configuration.baseUrl);
+        System.out.println("remote: " + Configuration.remote);
+        System.out.println("browser: " + Configuration.browser);
+        System.out.println("browserVersion: " + Configuration.browserVersion);
     }
 
     @AfterEach
