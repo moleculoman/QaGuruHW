@@ -37,7 +37,9 @@ dependencies {
             'com.codeborne:xls-test:1.4.3',
             'com.opencsv:opencsv:5.11',
             'org.assertj:assertj-core:3.27.3',
-            'io.qameta.allure:allure-selenide:2.27.0'
+            'io.qameta.allure:allure-selenide:2.27.0',
+            'org.slf4j:slf4j-api:1.7.25',
+            'ch.qos.logback:logback-classic:1.2.11'
     )
 }
 
@@ -46,7 +48,7 @@ dependencies {
 //Параметры запуска тестов расширенные
 tasks.withType(Test) {
     useJUnitPlatform()
-
+    systemProperties(System.getProperties())
     testLogging {
         lifecycle {
             events "started", "skipped", "failed", "standard_error", "standard_out"

@@ -13,15 +13,15 @@ public class RegistrationPage {
     CalendarComponent calendarComponent = new CalendarComponent();
     CheckResultComponent checkResultComponent = new CheckResultComponent();
 
+    public RegistrationPage openPage() {
+        open("/automation-practice-form");
+        return this;
+    }
     public RegistrationPage removeBanners() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
         executeJavaScript("$('[id=\"Ad.Plus-970x250-1\"]').remove()");
         executeJavaScript("$('[id^=\"Ad.Plus\"]').remove()");
-        return this;
-    }
-    public RegistrationPage openPage() {
-        open("/automation-practice-form");
         return this;
     }
     private   SelenideElement
@@ -99,8 +99,4 @@ public class RegistrationPage {
     public void assertModalIsNotVisible(){
         modalContent.shouldNotBe(visible);
     }
-
-
-
-
 }
