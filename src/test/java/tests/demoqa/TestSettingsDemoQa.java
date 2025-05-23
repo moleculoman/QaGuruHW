@@ -13,7 +13,6 @@ import java.util.Map;
 public class TestSettingsDemoQa {
     @BeforeAll
     static void settingsForBrowserDemoQa() {
-        Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = System.getProperty("browser.size", "1920x1080");
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browser.version", "128.0");
@@ -21,7 +20,9 @@ public class TestSettingsDemoQa {
         String SELENOID_URL = System.getProperty("SELENOID_URL");
         String SELENOID_LOGIN = System.getProperty("SELENOID_LOGIN");
         String SELENOID_PASSWORD = System.getProperty("SELENOID_PASSWORD");
+
         Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
+        Configuration.baseUrl = "https://demoqa.com";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
@@ -43,6 +44,5 @@ public class TestSettingsDemoQa {
         Attach.pageSource();
         Attach.browserConsoleLogs();
         Attach.addVideo();
-
     }
 }
