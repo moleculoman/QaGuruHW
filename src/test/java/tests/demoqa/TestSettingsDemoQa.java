@@ -29,9 +29,6 @@ public class TestSettingsDemoQa {
         Configuration.browserVersion = System.getProperty("browser.version", "128.0");
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://demoqa.com";
-
-        logger.info("Base URL set to: {}", Configuration.baseUrl);
-
     }
 
 

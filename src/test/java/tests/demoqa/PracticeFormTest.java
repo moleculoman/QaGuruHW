@@ -28,8 +28,6 @@ public class PracticeFormTest extends TestSettingsDemoQa {
         Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
         Configuration.browserCapabilities = capabilities;
         Configuration.holdBrowserOpen = false;
-        Selenide.webdriver();
-        open(Configuration.baseUrl);
     }
 
 
