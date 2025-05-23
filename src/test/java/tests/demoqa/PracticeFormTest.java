@@ -1,12 +1,37 @@
 package tests.demoqa;
 
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import pages.RegistrationPage;
 import utils.DataFaker;
+
+import java.util.Map;
+
+import static com.codeborne.selenide.Selenide.open;
 
 
 @Tag("DemoQaTests")
 public class PracticeFormTest extends TestSettingsDemoQa {
+
+    @BeforeEach
+    void beforeEach(){
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                "enableVNC", true,
+                "enableVideo", true
+        ));
+        Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
+        Configuration.browserCapabilities = capabilities;
+        Configuration.holdBrowserOpen = false;
+        Selenide.webdriver();
+        open(Configuration.baseUrl);
+    }
+
 
     RegistrationPage registrationPage = new RegistrationPage();
     DataFaker dF = new DataFaker();
