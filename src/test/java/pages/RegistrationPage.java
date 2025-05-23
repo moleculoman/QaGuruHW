@@ -99,8 +99,4 @@ public class RegistrationPage {
     public void assertModalIsNotVisible(){
         modalContent.shouldNotBe(visible);
     }
-
-
-
-
 }

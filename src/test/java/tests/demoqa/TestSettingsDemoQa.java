@@ -8,13 +8,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.slf4j.LoggerFactory;
 import utils.Attach;
 
 import java.util.Map;
+import org.slf4j.Logger;
 
 import static com.codeborne.selenide.Selenide.open;
 
 public class TestSettingsDemoQa {
+    private static final Logger logger = LoggerFactory.getLogger(TestSettingsDemoQa.class);
     static String SELENOID_URL = System.getProperty("SELENOID_URL");
     static String SELENOID_LOGIN = System.getProperty("SELENOID_LOGIN");
     static String SELENOID_PASSWORD = System.getProperty("SELENOID_PASSWORD");
@@ -25,6 +28,9 @@ public class TestSettingsDemoQa {
         Configuration.browserVersion = System.getProperty("browser.version", "128.0");
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://demoqa.com";
+
+        logger.info("Base URL set to: {}", Configuration.baseUrl);
+
     }
 
     @BeforeEach
@@ -39,6 +45,8 @@ public class TestSettingsDemoQa {
         Configuration.browserCapabilities = capabilities;
         Configuration.holdBrowserOpen = false;
         open(Configuration.baseUrl);
+        logger.info("Opened URL: {}", Configuration.baseUrl);
+
     }
     @AfterEach
     void addAttachments() {
