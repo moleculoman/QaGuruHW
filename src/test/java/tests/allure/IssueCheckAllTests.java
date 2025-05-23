@@ -4,20 +4,40 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Step;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import utils.Attach;
 
+
+import java.util.Map;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
 import static org.openqa.selenium.By.linkText;
 
-
+@Tag("AllureTests")
 public class IssueCheckAllTests {
     private static final String REPOSITORY = "selenide/selenide";
     @BeforeAll
     static void setup() {
         Configuration.browserSize = "1920x1080";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                "enableVNC", true,
+                "enableVideo", true
+        ));
+        Configuration.browserCapabilities = capabilities;
+
+    }
+    @AfterEach
+    void addAttachments() {
+        Attach.screenshotAs("Last screenshot");
+        Attach.pageSource();
+        Attach.browserConsoleLogs();
+        Attach.addVideo();
+
     }
     @Test
     @Step

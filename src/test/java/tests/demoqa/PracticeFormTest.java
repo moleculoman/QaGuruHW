@@ -4,6 +4,8 @@ import org.junit.jupiter.api.*;
 import pages.RegistrationPage;
 import utils.DataFaker;
 
+
+@Tag("DemoQaTests")
 public class PracticeFormTest extends TestSettingsDemoQa {
 
     RegistrationPage registrationPage = new RegistrationPage();

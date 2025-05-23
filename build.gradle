@@ -43,7 +43,39 @@ dependencies {
 
 
 
-
-test {
+//Параметры запуска тестов расширенные
+tasks.withType(Test) {
     useJUnitPlatform()
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
+
+//Через аннотацию @TAG можно конфигурировать список тестов для запуска
+task demoQaTests(type: Test) {
+    useJUnitPlatform {
+        includeTags("DemoQaTests")
+    }
+}
+
+task allureTests(type: Test) {
+    useJUnitPlatform {
+        includeTags("AllureTests")
+    }
+}
+
+task filesTests(type: Test) {
+useJUnitPlatform {
+    includeTags("FilesTests")
+    }
+}
+
+task megaMarketTests(type: Test) {
+    useJUnitPlatform {
+        includeTags("MegaMarketTests")
+    }
 }

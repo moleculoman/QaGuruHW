@@ -6,6 +6,7 @@ import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
 import com.opencsv.CSVReader;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+@Tag("FilesTest")
 public class ArchiveParsingTest {
     private final ClassLoader classLoader = ArchiveParsingTest.class.getClassLoader();
 
