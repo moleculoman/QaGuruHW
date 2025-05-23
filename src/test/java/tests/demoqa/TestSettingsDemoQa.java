@@ -19,9 +19,9 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class TestSettingsDemoQa {
     private static final Logger logger = LoggerFactory.getLogger(TestSettingsDemoQa.class);
-    static String SELENOID_URL = System.getProperty("SELENOID_URL");
-    static String SELENOID_LOGIN = System.getProperty("SELENOID_LOGIN");
-    static String SELENOID_PASSWORD = System.getProperty("SELENOID_PASSWORD");
+    static String SELENOID_URL = System.getProperty("selenoid.url");
+    static String SELENOID_LOGIN = System.getProperty("selenoid.login");
+    static String SELENOID_PASSWORD = System.getProperty("selenoid.password");
     @BeforeAll
     static void settingsForBrowserDemoQa() {
         Configuration.browserSize = System.getProperty("browser.size", "1920x1080");

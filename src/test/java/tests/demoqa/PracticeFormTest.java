@@ -11,9 +11,6 @@ import utils.DataFaker;
 
 import java.util.Map;
 
-import static com.codeborne.selenide.Selenide.open;
-
-
 @Tag("DemoQaTests")
 public class PracticeFormTest extends TestSettingsDemoQa {
 
