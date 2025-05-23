@@ -1,6 +1,7 @@
 package tests.demoqa;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
@@ -44,6 +45,7 @@ public class TestSettingsDemoQa {
         Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
         Configuration.browserCapabilities = capabilities;
         Configuration.holdBrowserOpen = false;
+        Selenide.webdriver();
         open(Configuration.baseUrl);
         logger.info("Opened URL: {}", Configuration.baseUrl);
 
@@ -54,5 +56,6 @@ public class TestSettingsDemoQa {
         Attach.pageSource();
         Attach.browserConsoleLogs();
         Attach.addVideo();
+        Selenide.closeWebDriver();
     }
 }
