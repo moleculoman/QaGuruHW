@@ -30,7 +30,18 @@ public class TestSettingsDemoQa {
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://demoqa.com";
     }
-
+    @BeforeEach
+    void beforeEach(){
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                "enableVNC", true,
+                "enableVideo", true
+        ));
+        Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
+        Configuration.browserCapabilities = capabilities;
+        Configuration.holdBrowserOpen = false;
+    }
 
     @AfterEach
     void addAttachments() {

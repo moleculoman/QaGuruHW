@@ -14,20 +14,6 @@ import java.util.Map;
 @Tag("DemoQaTests")
 public class PracticeFormTest extends TestSettingsDemoQa {
 
-    @BeforeEach
-    void beforeEach(){
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-                "enableVNC", true,
-                "enableVideo", true
-        ));
-        Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
-        Configuration.browserCapabilities = capabilities;
-        Configuration.holdBrowserOpen = false;
-    }
-
-
     RegistrationPage registrationPage = new RegistrationPage();
     DataFaker dF = new DataFaker();
 
