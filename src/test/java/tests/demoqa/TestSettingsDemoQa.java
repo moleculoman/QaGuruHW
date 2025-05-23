@@ -12,6 +12,8 @@ import utils.Attach;
 
 import java.util.Map;
 
+import static com.codeborne.selenide.Selenide.open;
+
 public class TestSettingsDemoQa {
     static String SELENOID_URL = System.getProperty("SELENOID_URL");
     static String SELENOID_LOGIN = System.getProperty("SELENOID_LOGIN");
@@ -23,7 +25,6 @@ public class TestSettingsDemoQa {
         Configuration.browserVersion = System.getProperty("browser.version", "128.0");
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://demoqa.com";
-        Configuration.holdBrowserOpen = false;
     }
 
     @BeforeEach
@@ -37,6 +38,7 @@ public class TestSettingsDemoQa {
         Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
         Configuration.browserCapabilities = capabilities;
         Configuration.holdBrowserOpen = false;
+        open(Configuration.baseUrl);
     }
     @AfterEach
     void addAttachments() {
