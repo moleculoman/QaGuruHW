@@ -29,6 +29,7 @@ public class TestSettingsDemoQa {
                 "enableVideo", true
         ));
         Configuration.browserCapabilities = capabilities;
+        Configuration.holdBrowserOpen = false;
     }
 
     @AfterEach
