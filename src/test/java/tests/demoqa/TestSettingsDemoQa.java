@@ -18,9 +18,9 @@ public class TestSettingsDemoQa {
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browser.version", "128.0");
         Configuration.pageLoadStrategy = "eager";
-        final String SELENOID_URL = System.getProperty("selenoid.url");
-        final String SELENOID_LOGIN = System.getProperty("selenoid.login");;
-        final String SELENOID_PASSWORD = System.getProperty("selenoid.password");
+        String SELENOID_URL = System.getProperty("selenoid.url");
+        String SELENOID_LOGIN = System.getProperty("selenoid.login");
+        String SELENOID_PASSWORD = System.getProperty("selenoid.password");
         Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         DesiredCapabilities capabilities = new DesiredCapabilities();
