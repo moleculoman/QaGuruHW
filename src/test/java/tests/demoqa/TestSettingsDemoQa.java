@@ -6,22 +6,35 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import utils.Attach;
 
 import java.util.Map;
 
 public class TestSettingsDemoQa {
+    static String SELENOID_URL = System.getProperty("SELENOID_URL");
+    static String SELENOID_LOGIN = System.getProperty("SELENOID_LOGIN");
+    static String SELENOID_PASSWORD = System.getProperty("SELENOID_PASSWORD");
     @BeforeAll
     static void settingsForBrowserDemoQa() {
         Configuration.browserSize = System.getProperty("browser.size", "1920x1080");
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browser.version", "128.0");
         Configuration.pageLoadStrategy = "eager";
-        String SELENOID_URL = System.getProperty("SELENOID_URL");
-        String SELENOID_LOGIN = System.getProperty("SELENOID_LOGIN");
-        String SELENOID_PASSWORD = System.getProperty("SELENOID_PASSWORD");
 
+    }
+
+    @AfterEach
+    void addAttachments() {
+        Attach.screenshotAs("Last screenshot");
+        Attach.pageSource();
+        Attach.browserConsoleLogs();
+        Attach.addVideo();
+    }
+
+    @BeforeEach
+    void beforeEach(){
         Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
         Configuration.baseUrl = "https://demoqa.com";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
@@ -32,20 +45,5 @@ public class TestSettingsDemoQa {
         ));
         Configuration.browserCapabilities = capabilities;
         Configuration.holdBrowserOpen = false;
-
-        System.out.println("baseUrl: " + Configuration.baseUrl);
-        System.out.println("remote: " + Configuration.remote);
-        System.out.println("browser: " + Configuration.browser);
-        System.out.println("browserVersion: " + Configuration.browserVersion);
-        System.out.println("Current URL: " + WebDriverRunner.getWebDriver().getCurrentUrl());
-        System.out.println("Is browser open? " + WebDriverRunner.hasWebDriverStarted());
-    }
-
-    @AfterEach
-    void addAttachments() {
-        Attach.screenshotAs("Last screenshot");
-        Attach.pageSource();
-        Attach.browserConsoleLogs();
-        Attach.addVideo();
     }
 }
