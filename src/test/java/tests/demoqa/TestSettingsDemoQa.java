@@ -22,7 +22,7 @@ public class TestSettingsDemoQa {
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browser.version", "128.0");
         Configuration.pageLoadStrategy = "eager";
-
+        Configuration.baseUrl = "https://demoqa.com";
     }
 
     @AfterEach
@@ -36,7 +36,6 @@ public class TestSettingsDemoQa {
     @BeforeEach
     void beforeEach(){
         Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
-        Configuration.baseUrl = "https://demoqa.com";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
