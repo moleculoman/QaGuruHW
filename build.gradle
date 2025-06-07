@@ -39,11 +39,10 @@ dependencies {
             'org.assertj:assertj-core:3.27.3',
             'io.qameta.allure:allure-selenide:2.27.0',
             'org.slf4j:slf4j-api:1.7.25',
-            'ch.qos.logback:logback-classic:1.2.11'
+            'ch.qos.logback:logback-classic:1.2.11',
+            "io.rest-assured:rest-assured:5.3.1"
     )
 }
-
-
 
 //Параметры запуска тестов расширенные
 tasks.withType(Test) {
@@ -79,5 +78,11 @@ useJUnitPlatform {
 task megaMarketTests(type: Test) {
     useJUnitPlatform {
         includeTags("MegaMarketTests")
+    }
+}
+
+task reqresTests(type: Test) {
+    useJUnitPlatform {
+        includeTags("ReqresTests")
     }
 }
