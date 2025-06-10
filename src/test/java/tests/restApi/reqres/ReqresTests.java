@@ -92,7 +92,9 @@ public class ReqresTests extends TestSettingsReqresTests {
     @Test
     @DisplayName("Успешная регистрация")
     void registerUserSuccessfullyTest() {
-        String userCredentialJson = "{ \"email\": \"" + TEST_USER_EMAIL + "\", \"password\": \"" + TEST_USER_PASS + "\" }";
+        String userCredentialJson =
+                "{ \"email\": \"" + TEST_USER_EMAIL + "\"," +
+                " \"password\": \"" + TEST_USER_PASS + "\" }";
 
         given()
             .header(FREE_API_KEY_NAME, FREE_API_KEY_VALUE)
@@ -121,6 +123,42 @@ public class ReqresTests extends TestSettingsReqresTests {
         .then()
             .statusCode(HTTP_BAD_REQUEST)
             .body("error", is("Missing password"))
+            .log().all();
+    }
+
+    @Test
+    @DisplayName("Частичное обновление юзера - patch метод")
+    void patchingUsersJobTest() {
+        String userJsonBody = "{\"job\": \"URANUS LEADER\"}";
+        given()
+            .header(FREE_API_KEY_NAME, FREE_API_KEY_VALUE)
+            .body(userJsonBody)
+            .contentType(JSON)
+            .log().uri()
+        .when()
+            .patch(USERS_END_POINT + validUserId)
+        .then()
+            .statusCode(HTTP_OK)
+            .body("job", is("URANUS LEADER"))
+            .log().all();
+
+    }
+
+    @Test
+    @DisplayName("Полное обновление юзера - put метод")
+    void updatingUsersInfoTest() {
+        String userJsonBody = "{\"name\": \"StarKiller2\", \"job\": \"StarEmperor\"}";
+        given()
+            .header(FREE_API_KEY_NAME, FREE_API_KEY_VALUE)
+            .body(userJsonBody)
+            .contentType(JSON)
+            .log().uri()
+        .when()
+            .put(USERS_END_POINT + validUserId)
+        .then()
+            .statusCode(HTTP_OK)
+            .body("name", is("StarKiller2"))
+            .body("job", is("StarEmperor"))
             .log().all();
     }
 }
