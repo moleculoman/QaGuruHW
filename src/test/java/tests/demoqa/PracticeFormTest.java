@@ -1,15 +1,8 @@
 package tests.demoqa;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import pages.RegistrationPage;
-import utils.DataFaker;
-
-import java.util.Map;
+import helpers.DataFaker;
 
 @Tag("DemoQaTests")
 public class PracticeFormTest extends TestSettingsDemoQa {
