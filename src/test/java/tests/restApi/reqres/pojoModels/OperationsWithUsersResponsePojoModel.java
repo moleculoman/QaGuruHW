@@ -3,52 +3,10 @@ package tests.restApi.reqres.pojoModels;
 import java.util.ArrayList;
 
 public class OperationsWithUsersResponsePojoModel {
-    String id,email;
-    String first_name,last_name;
-    String page,per_page;
-    String total, total_pages;
-    ArrayList data;
-
-    public ArrayList getData() {
-        return data;
-    }
-
-    public void setData(ArrayList data) {
-        this.data = data;
-    }
-
-
-    public String getTotal() {
-        return total;
-    }
-
-    public void setTotal(String total) {
-        this.total = total;
-    }
-
-    public String getTotal_pages() {
-        return total_pages;
-    }
-
-    public void setTotal_pages(String total_pages) {
-        this.total_pages = total_pages;
-    }
-
-    public String getPer_page() {
-        return per_page;
-    }
-
-    public void setPer_page(String per_page) {
-        this.per_page = per_page;
-    }
-
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
-    }
+    String id;
+    String name;
+    String job;
+    String createdAt;
 
     public String getId() {
         return id;
@@ -58,28 +16,27 @@ public class OperationsWithUsersResponsePojoModel {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getJob() {
+        return job;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setJob(String job) {
+        this.job = job;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
-
 }

@@ -10,13 +10,15 @@ import tests.restApi.reqres.lombokModels.LoginResponseModel;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static specs.UsersSpecs.loginUserRequestSpec;
-import static specs.UsersSpecs.loginUserResponseSpec200;
-import static specs.UsersSpecs.loginUserResponseSpec400;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+import static specs.UsersSpecs.*;
 
 @Tag("ReqresTests")
 public class LoginUserLombokTests extends TestSettingsReqresTests {
+
+    public int minTokenLength = 16;
+
     @Test
     @DisplayName("Успешная авторизация")
     void loginUserSuccessfullyLombokTest() {
@@ -24,15 +26,21 @@ public class LoginUserLombokTests extends TestSettingsReqresTests {
         authData.setEmail("eve.holt@reqres.in");
         authData.setPassword("pistol");
         LoginResponseModel response = step("Make request", () ->
-                given(loginUserRequestSpec)
+                given(userRequestSpec)
                         .body(authData)
                 .when()
                         .post(LOGIN_END_POINT)
                 .then()
-                        .spec(loginUserResponseSpec200)
+                        .spec(responseSpec200)
                         .extract().as(LoginResponseModel.class));
-        step("Check response", () ->
-        assertEquals("QpwL5tke4Pnpja7X4",response.getToken()));
+        step("Check response", () -> {
+            String token = response.getToken();
+            assertEquals("QpwL5tke4Pnpja7X4", token);
+            assertNotNull(token);
+            assertFalse(token.isBlank());
+            assertThat(token.length()).isGreaterThanOrEqualTo(minTokenLength);
+            assertThat(token).matches("^[a-zA-Z0-9]+$");
+        });
     }
 
     @Test
@@ -41,12 +49,12 @@ public class LoginUserLombokTests extends TestSettingsReqresTests {
         LoginBodyModel authData = new LoginBodyModel();
         authData.setEmail("eve.holt@reqres.in");
         LoginResponseModel response = step("Make request", () ->
-                given(loginUserRequestSpec)
+                given(userRequestSpec)
                         .body(authData)
                 .when()
                         .post(LOGIN_END_POINT)
                 .then()
-                        .spec(loginUserResponseSpec400)
+                        .spec(responseSpec400)
                         .extract().as(LoginResponseModel.class));
         step("Check response", () ->
         assertEquals("Missing password",response.getError()));
@@ -57,12 +65,12 @@ public class LoginUserLombokTests extends TestSettingsReqresTests {
         LoginBodyModel authData = new LoginBodyModel();
         authData.setPassword("pistol");
         LoginResponseModel response =step("Make request", () ->
-                given(loginUserRequestSpec)
+                given(userRequestSpec)
                         .body(authData)
                 .when()
                         .post(LOGIN_END_POINT)
                 .then()
-                        .spec(loginUserResponseSpec400)
+                        .spec(responseSpec400)
                         .extract().as(LoginResponseModel.class));
         step("Check response", () ->
         assertEquals("Missing email or username",response.getError()));

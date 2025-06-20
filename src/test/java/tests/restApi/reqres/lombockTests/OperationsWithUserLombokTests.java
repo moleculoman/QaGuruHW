@@ -9,9 +9,7 @@ import tests.restApi.reqres.lombokModels.OperationsWithManyUsersResponseModel;
 import tests.restApi.reqres.lombokModels.OperationsWithSingleUserResponseModel;
 import tests.restApi.reqres.lombokModels.OperationsWithUsersModel;
 
-import static helpers.CustomAllureListener.withCustomTemplates;
 import static io.qameta.allure.Allure.step;
-import static io.restassured.RestAssured.filters;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static java.net.HttpURLConnection.*;
@@ -29,11 +27,11 @@ public class OperationsWithUserLombokTests extends TestSettingsReqresTests {
     @DisplayName("Получение списка всех юзеров")
     void getUsersListTest(){
         OperationsWithManyUsersResponseModel response = step("Make request", () ->
-            given(operationsWithUserRequestSpec)
+            given(userRequestSpec)
             .when()
                 .get(USERS_END_POINT+ "?page=2")
             .then()
-                .spec(loginUserResponseSpec200)
+                .spec(responseSpec200)
             .extract().as(OperationsWithManyUsersResponseModel.class));
         step("Check response", () ->{
         assertThat(response.getPage()).isEqualTo("2");
@@ -46,11 +44,11 @@ public class OperationsWithUserLombokTests extends TestSettingsReqresTests {
     void getExistUserTest(){
 
         OperationsWithSingleUserResponseModel response= step("Make request", () ->
-            given(operationsWithUserRequestSpec)
+            given(userRequestSpec)
             .when()
                 .get(USERS_END_POINT + validUserId)
             .then()
-                    .spec(loginUserResponseSpec200)
+                    .spec(responseSpec200)
             .extract().as(OperationsWithSingleUserResponseModel.class));
         step("Check response", () -> {
             assertThat(response.getData().getId()).isEqualTo("9");
@@ -62,11 +60,11 @@ public class OperationsWithUserLombokTests extends TestSettingsReqresTests {
     @DisplayName("Поиск несуществующего юзера")
     void getNonExistUserTest() {
         OperationsWithSingleUserResponseModel response= step("Make request", () ->
-            given(operationsWithUserRequestSpec)
+            given(userRequestSpec)
             .when()
                 .get(USERS_END_POINT + notValidUserId)
             .then()
-                    .spec(loginUserResponseSpec404)
+                    .spec(responseSpec404)
             .extract().as(OperationsWithSingleUserResponseModel.class));
         step("Check response", () ->
         assertNull(response.getData()));
@@ -79,12 +77,12 @@ public class OperationsWithUserLombokTests extends TestSettingsReqresTests {
         requestData.setName("StarKiller");
         requestData.setJob("StarLord");
         CrudOperationsWithUserResponseModel response= step("Make request", () ->
-            given(loginUserRequestSpec)
+            given(userRequestSpec)
                         .body(requestData)
             .when()
                 .post(USERS_END_POINT)
             .then()
-                .spec(operationsWithUserResponseSpec201)
+                .spec(responseSpec201)
             .extract().as(CrudOperationsWithUserResponseModel.class));
         step("Check response", () -> {
             assertEquals("StarKiller", response.getName());
@@ -98,11 +96,11 @@ public class OperationsWithUserLombokTests extends TestSettingsReqresTests {
     @DisplayName("Успешное удаление юзера")
     void deleteUserSuccessfullyTest() {
         step("Delete user", () ->
-            given(operationsWithUserRequestSpec)
+            given(userRequestSpec)
             .when()
                 .delete(USERS_END_POINT + validUserId)
             .then()
-                .spec(operationsWithUserResponseSpec204));
+                .spec(responseSpec204));
     }
 
     @Test
@@ -138,12 +136,12 @@ public class OperationsWithUserLombokTests extends TestSettingsReqresTests {
         requestData.setName("StarKiller2");
         requestData.setJob("StarEmperor");
         CrudOperationsWithUserResponseModel response = step("Make request", () ->
-                given(operationsWithUserRequestSpec)
+                given(userRequestSpec)
                         .body(requestData)
                 .when()
                         .put(USERS_END_POINT + validUserId)
                 .then()
-                        .spec(operationsWithUserResponseSpec200)
+                        .spec(responseSpec200)
                         .extract().as(CrudOperationsWithUserResponseModel.class));
                 step("Check response", () -> {
             assertEquals("StarEmperor", response.getJob());

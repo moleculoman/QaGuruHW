@@ -3,12 +3,17 @@ package tests.restApi.reqres.pojoTests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tests.restApi.reqres.TestSettingsReqresTests;
+import tests.restApi.reqres.pojoModels.LoginResponsePojoModel;
+import tests.restApi.reqres.pojoModels.OperationsWithUsersPojoModel;
+import tests.restApi.reqres.pojoModels.OperationsWithUsersResponsePojoModel;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static java.net.HttpURLConnection.*;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class OperationsWithUserTests extends TestSettingsReqresTests {
     int validUserId = 9;
@@ -58,8 +63,10 @@ public class OperationsWithUserTests extends TestSettingsReqresTests {
     @Test
     @DisplayName("Успешное создание юзера")
     void сreateUserSuccessfullyTest() {
-        String userJsonBody = "{\"name\": \"StarKiller\", \"job\": \"StarLord\"}";
-        given()
+        OperationsWithUsersPojoModel userJsonBody = new OperationsWithUsersPojoModel();
+        userJsonBody.setName("StarKiller");
+        userJsonBody.setJob("StarLord");
+        OperationsWithUsersResponsePojoModel response = given()
                 .header(API_KEY_NAME, API_KEY)
                 .body(userJsonBody)
                 .contentType(JSON)
@@ -68,9 +75,11 @@ public class OperationsWithUserTests extends TestSettingsReqresTests {
                 .post(USERS_END_POINT)
                 .then()
                 .statusCode(HTTP_CREATED)
-                .body("name", is("StarKiller"))
-                .body("job", is("StarLord"))
-                .log().all();
+                .log().all()
+                .extract().as(OperationsWithUsersResponsePojoModel.class);
+            assertEquals("StarLord",response.getJob());
+            assertEquals("StarKiller",response.getName());
+            assertNotNull(response.getCreatedAt());
     }
 
     @Test
