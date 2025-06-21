@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.LoggerFactory;
-import utils.Attach;
+import helpers.Attach;
 
 import java.util.Map;
 import org.slf4j.Logger;
