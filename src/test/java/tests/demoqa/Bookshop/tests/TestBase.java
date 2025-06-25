@@ -49,12 +49,4 @@ public class TestBase {
         Attach.addVideo();
 
     }
-
-    @AfterEach
-    void shutDown() {
-        closeWebDriver();
-    }
-
-
-
 }
