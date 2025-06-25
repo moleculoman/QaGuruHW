@@ -19,9 +19,9 @@ public class TestBase {
     public static final String LOGIN_END_POINT = "/Account/v1/Login";
 
 
-    private static final String SELENOID_URL = System.getProperty("selenoid.url");
-    private static final String SELENOID_LOGIN = System.getProperty("selenoid.login");
-    private static final String SELENOID_PASSWORD = System.getProperty("selenoid.password");
+    private static final String SELENOID_URL = System.getProperty("SELENOID_URL");
+    private static final String SELENOID_LOGIN = System.getProperty("SELENOID_LOGIN");
+    private static final String SELENOID_PASSWORD = System.getProperty("SELENOID_PASSWORD");
 
     @BeforeAll
     public static void beforeAll() {
