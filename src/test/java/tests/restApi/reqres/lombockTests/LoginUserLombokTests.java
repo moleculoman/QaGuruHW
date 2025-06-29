@@ -12,7 +12,7 @@ import static io.restassured.RestAssured.given;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static specs.UsersSpecs.*;
+import static tests.restApi.specs.UsersSpecs.*;
 
 @Tag("ReqresTests")
 public class LoginUserLombokTests extends TestSettingsReqresTests {

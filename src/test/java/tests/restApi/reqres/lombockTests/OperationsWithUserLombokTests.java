@@ -15,7 +15,7 @@ import static io.restassured.http.ContentType.JSON;
 import static java.net.HttpURLConnection.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static specs.UsersSpecs.*;
+import static tests.restApi.specs.UsersSpecs.*;
 
 
 @Tag("ReqresTests")

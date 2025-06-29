@@ -1,10 +1,10 @@
-package tests.demoqa;
+package tests.demoqa.PracticeForm;
 
 import org.junit.jupiter.api.*;
-import pages.RegistrationPage;
+import tests.demoqa.PracticeForm.pages.RegistrationPage;
 import helpers.DataFaker;
 
-@Tag("DemoQaTests")
+@Tag("PracticeFormTests")
 public class PracticeFormTest extends TestSettingsDemoQa {
 
     RegistrationPage registrationPage = new RegistrationPage();

@@ -1,10 +1,9 @@
-package pages;
+package tests.demoqa.PracticeForm.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import pages.components.CalendarComponent;
-import pages.components.CheckResultComponent;
+import tests.demoqa.PracticeForm.pages.components.CalendarComponent;
+import tests.demoqa.PracticeForm.pages.components.CheckResultComponent;
 
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
