@@ -15,7 +15,7 @@ import static tests.demoqa.Bookshop.tests.TestData.*;
 public class LoginExtension implements BeforeEachCallback {
 
     @Override
-    public void beforeEach(ExtensionContext context) throws Exception{
+    public void beforeEach(ExtensionContext context){
         LoginResponseModel loginResponse = AuthorizationApi.login();
         step("Авторизация c @WithLogin", () ->
         open("/favicon.ico"));

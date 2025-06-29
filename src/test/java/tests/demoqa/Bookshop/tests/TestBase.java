@@ -7,6 +7,7 @@ import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.Map;
@@ -25,7 +26,6 @@ public class TestBase {
 
     @BeforeAll
     public static void beforeAll() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
         RestAssured.baseURI = "https://demoqa.com";
@@ -33,14 +33,18 @@ public class TestBase {
         Configuration.browserVersion = System.getProperty("browser.version", "");
         Configuration.browserSize = System.getProperty("browser.size", "1920x1080");
 
-        Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-                "enableVNC", true,
-                "enableVideo", true
-        ));
-        Configuration.browserCapabilities = capabilities;
+        if (System.getProperty("SELENOID_URL") != null &
+                System.getProperty( "SELENOID_LOGIN") != null)
+        {
+            Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                    "enableVNC", true,
+                    "enableVideo", true
+            ));
+            Configuration.browserCapabilities = capabilities;
+        }
     }
-
     @AfterEach
     void addAttachments() {
         Attach.screenshotAs("Last screenshot");
@@ -48,5 +52,10 @@ public class TestBase {
         Attach.browserConsoleLogs();
         Attach.addVideo();
 
+    }
+
+    @BeforeEach
+    void beforeEach(){
+        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 }
