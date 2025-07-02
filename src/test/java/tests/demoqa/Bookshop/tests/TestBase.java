@@ -18,6 +18,7 @@ public class TestBase {
     public static final String ALL_BOOKS_END_POINT = "/BookStore/v1/Books";
     public static final String SINGLE_BOOK_END_POINT = "/BookStore/v1/Book";
     public static final String LOGIN_END_POINT = "/Account/v1/Login";
+    public static final String GENERATE_TOKEN_END_POINT = "/Account/v1/GenerateToken";
 
 
     private static final String SELENOID_URL = System.getProperty("SELENOID_URL");
