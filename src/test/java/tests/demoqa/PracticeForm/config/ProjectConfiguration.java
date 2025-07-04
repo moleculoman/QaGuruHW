@@ -16,7 +16,7 @@ public class ProjectConfiguration {
 
     public void webConfig() {
         Configuration.baseUrl = webConfig.baseUrl();
-        Configuration.browser = webConfig.browser().toString();
+        Configuration.browser = webConfig.browser();
         if (webConfig.browser() == null) {
             throw new IllegalStateException("Browser configuration is missing");
         }

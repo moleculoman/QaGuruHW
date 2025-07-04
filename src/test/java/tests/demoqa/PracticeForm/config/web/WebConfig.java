@@ -5,14 +5,12 @@ import org.aeonbits.owner.Config;
 @Config.LoadPolicy(Config.LoadType.MERGE)
 @Config.Sources({
         "system:properties",
-        "classpath:${env}.properties",
-        "file:~/${env}.properties",
-        "file:./${env}.properties"
+        "classpath:${env}.properties"
 })
 public interface WebConfig extends Config {
     @Key("browser")
     @DefaultValue("chrome")
-    Browser browser();
+    String browser();
     @Key("browserVersion")
     @DefaultValue("128.0")
     String browserVersion();
