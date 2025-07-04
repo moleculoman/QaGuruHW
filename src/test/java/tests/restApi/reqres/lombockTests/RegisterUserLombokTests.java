@@ -10,7 +10,7 @@ import tests.restApi.reqres.lombokModels.RegisterResponseModel;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static specs.UsersSpecs.*;
+import static tests.restApi.specs.UsersSpecs.*;
 
 
 @Tag("ReqresTests")

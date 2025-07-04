@@ -1,4 +1,4 @@
-package model;
+package tests.demoqa.PracticeForm.model;
 
 import java.util.List;
 
