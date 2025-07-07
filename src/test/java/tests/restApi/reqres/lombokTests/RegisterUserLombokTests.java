@@ -1,4 +1,4 @@
-package tests.restApi.reqres.lombockTests;
+package tests.restApi.reqres.lombokTests;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;

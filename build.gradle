@@ -45,7 +45,8 @@ dependencies {
             'io.rest-assured:json-schema-validator:5.5.0',
             'org.projectlombok:lombok:1.18.30',
             'io.qameta.allure:allure-rest-assured:2.21.0',
-            'io.qameta.allure:allure-attachments:2.21.0'
+            'io.qameta.allure:allure-attachments:2.21.0',
+            'org.aeonbits.owner:owner:1.0.4'
     )
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
@@ -67,6 +68,7 @@ task practiceFormTests(type: Test) {
     useJUnitPlatform {
         includeTags("PracticeFormTests")
     }
+    systemProperties(System.getProperties())
 }
 
 task allureTests(type: Test) {
